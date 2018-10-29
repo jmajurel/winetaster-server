@@ -8,7 +8,7 @@ const errorHandler = require('./handlers/errors');
 const { getAllWines, getOneWine } = require('./handlers/wines');
 
 dotenv.config();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8081;
 const app = express();
 
 //middlewares
