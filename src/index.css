@@ -11,8 +11,8 @@ body {
 
 .intro {
   position: absolute;
-  top: 40vh;
-  left: 50vh;
+  top: 40%;
+  left: 25%;
   color: white;
   z-index: 1;
 }

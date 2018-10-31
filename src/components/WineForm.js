@@ -33,7 +33,7 @@ class WineForm extends Component {
 	    className='form-control'
 	    id='name' 
 	    name='name' 
-	    placeholder='Sauvignon Blanc'
+	    placeholder='sauvignon Blanc'
 	    required
 	    type='text'
 	    value={name}
@@ -46,7 +46,7 @@ class WineForm extends Component {
 	    className='form-control'
 	    id='type' 
 	    name='type' 
-	    placeholder='Red'
+	    placeholder='red'
 	    required
 	    type='text'
 	    value={type}
@@ -63,6 +63,7 @@ class WineForm extends Component {
 	    min='0'
 	    step='0.1'
 	    type='number'
+	    placeholder='50'
 	    value={price}
 	    onChange={this.handleUpdate}
 	    />
@@ -73,6 +74,7 @@ class WineForm extends Component {
 	    className='form-control'
 	    id='domaine' 
 	    name='domaine' 
+	    placeholder='domaine name'
 	    type='string'
 	    value={domaine}
 	    onChange={this.handleUpdate}
@@ -97,7 +99,7 @@ class WineForm extends Component {
 	    className='form-control'
 	    id='description' 
 	    name='description' 
-	    rows='3'
+	    rows='5'
 	    value={description}
 	    onChange={this.handleUpdate}
 	    />
