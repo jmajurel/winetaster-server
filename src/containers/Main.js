@@ -3,16 +3,32 @@ import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import HomePage from '../components/HomePage';
 import AuthForm from '../components/AuthForm';
+import DomaineForm from '../components/DomaineForm';
 import { authUser } from '../store/actions/auths';
 import { postWine, putWine } from '../store/actions/wines';
+import { putDomaine } from '../store/actions/domaines';
 import { deleteError } from '../store/actions/errors';
-import WineDetailPage from './WineDetailPage';
+import WineDetail from './WineDetail';
+import DomaineDetail from './DomaineDetail';
 import WineForm from '../components/WineForm';
 import WineBar from './WineBar';
+import Domaines from './Domaines';
 
 class Main extends Component {
+
   render(){
-    const { selectedWine, authUser, postWine, putWine, errors, deleteError, users} = this.props;
+
+    const { 
+      selectedWine, 
+      selectedDomaine, 
+      authUser, 
+      postWine, 
+      putWine, 
+      putDomaine, 
+      errors, 
+      deleteError, 
+      users } = this.props;
+
     return (
       <div className='Main'>
         <Switch>
@@ -20,13 +36,16 @@ class Main extends Component {
 	    <HomePage currentUser={users} />
 	  )}/>
 	  <Route exact path='/wines' component={WineBar} />
+	  <Route exact path='/domaines' component={Domaines} />
 	  <Route exact path='/wines/:id' render={ props => (
-	    <WineDetailPage {...props} /> 
+	    <WineDetail {...props} /> 
+	  )} />
+	  <Route exact path='/domaines/:id' render={ props => (
+	    <DomaineDetail {...props} /> 
 	  )} />
 	  <Route exact path='/addWine' render={ props => (
 	    <WineForm 
 	      type='create'
-	      wine={{}}
 	      onSubmit={postWine} 
 	      currentUser={users.user}
 	      errors={errors} 
@@ -43,6 +62,15 @@ class Main extends Component {
 	      {...props}
 	      />
 	  )} />
+	  <Route exact path='/updateDomaine' render={ props => (
+	    <DomaineForm 
+	      domaine={selectedDomaine}
+	      onSubmit={putDomaine} 
+	      errors={errors} 
+	      {...props}
+	      />
+	  )} />
+
 	  <Route exact path='/user/login' render={ props => (
 	    <AuthForm 
 	      authType='login' 
@@ -70,8 +98,15 @@ function mapStateToProps(state) {
   return {
     errors: state.errors,
     users: state.users,
-    selectedWine: state.wines.selectedWine
+    selectedWine: state.wines.selectedWine,
+    selectedDomaine: state.domaines.selectedDomaine
   }
 }
 
-export default withRouter(connect(mapStateToProps, { authUser, postWine, putWine, deleteError })(Main));
+export default withRouter(connect(mapStateToProps, { 
+  authUser, 
+  postWine, 
+  putWine, 
+  putDomaine,
+  deleteError 
+})(Main));

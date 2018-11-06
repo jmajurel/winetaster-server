@@ -25,14 +25,14 @@ export default (state= DEFAULT_STATE, action) => {
     case REMOVE_WINE:
       return {
 	...state,
-	wines: action.wines.filter(wine => wine.id !== action.wine.id)
+	wines: state.wines.filter(wine => wine.id !== action.wine.id)
       };
 
     case UPDATE_WINE:
-      let updatedWines = action.wines.map(wine => wine.id === action.wine.id ? action.wine: wine)
+      let updatedWines = state.wines.map(wine => wine._id === action.wine._id ? action.wine: wine);
       return {
 	...state,
-	wines: updatedWines
+	wines: [...updatedWines]
       };
     default:
       return state;

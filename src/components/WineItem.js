@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import defaultWineImg from '../images/defaultWineImg.png';
+import moment from 'moment';
 
 class WineItem extends Component {
   render() {
-    const {image, name, type, price, age, alcohol} = this.props.wine;
+    const { image, name, type, price, age, alcohol, createdAt } = this.props.wine;
     return (
       <div className="card">
         <div className='card-illustration'>
@@ -20,7 +21,7 @@ class WineItem extends Component {
 	  {alcohol && (
 	      <p className="card-text">Alcohol: {alcohol}</p>
 	  )}
-	  <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+	  <p className="card-text"><small className="text-muted">{moment(createdAt).fromNow()}</small></p>
 	  <Link to={`/wines/${this.props.wine._id}`} className='btn btn-secondary'>More detail</Link>
 	</div>
       </div>

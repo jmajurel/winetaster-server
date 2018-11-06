@@ -3,16 +3,20 @@ import React, { Component } from 'react';
 class WineForm extends Component {
   constructor(props) {
     super(props);
-    
     this.state = {
+      name: '',
+      image: '',
+      type: '',
+      price: 0,
+      description: '',
       ...this.props.wine,
-      domaine: (this.props.wine.domaine && this.props.wine.domaine.name) || ''
+      domaine: (this.props.wine && this.props.wine.domaine && this.props.wine.domaine.name) || ''
     }
   }
   handleSubmit = e => {
     e.preventDefault();
     this.props.onSubmit(this.props.currentUser, this.state)
-      .then(this.props.history.push('/'))
+      .then(this.props.history.goBack())
   }
 
   handleUpdate = e => {
@@ -23,7 +27,9 @@ class WineForm extends Component {
     const { name, image, type, price, domaine, description } = this.state;
     const { errors } = this.props;
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form 
+        onSubmit={this.handleSubmit}
+	autoComplete="off">
 	{ errors.message && (
 	  <div className='alert alert-danger'>{errors.message}</div>
 	)}

@@ -28,6 +28,9 @@ class NavBar extends Component {
 	    <li className="nav-item">
 	      <Link className="nav-link" to="/wines">Wine Bar</Link>
 	    </li>
+	    <li className="nav-item">
+	      <Link className="nav-link" to="/domaines">Domaines</Link>
+	    </li>
 	  </ul>
 	    { isAuthenticated ? (
 	      <ul className='navbar-nav'>
