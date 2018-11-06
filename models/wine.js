@@ -26,6 +26,7 @@ const wineSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Domaine'
   },
+  createdAt: { type: Date, default: Date.now },
   age: Number,
   alcohol: Number
 }); 

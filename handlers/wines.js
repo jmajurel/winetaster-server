@@ -1,4 +1,5 @@
 const db = require('../models');
+const sanitizer = require('sanitizer');
 
 async function getAllWines(req, res, next) {
   try {
@@ -50,11 +51,10 @@ async function createWine(req, res, next) {
 	image,
 	age,
 	alcohol,
-	description,
+	description: sanitizer.sanitize(description),
 	domaine: domaineRef.id
       });
 
-      console.log(newlyCreatedWine);
       
       newlyCreatedWine.owners.push(foundUser.id);
       await newlyCreatedWine.save();
@@ -110,7 +110,7 @@ async function updateWine(req, res, next) {
       price,
       domaine: domaineRef._id,
       image,
-      description
+      description: sanitizer.sanitize(description)
     };
 
     const newlyUpdatedWine = await db.Wine.findByIdAndUpdate(req.params.wineId, updatedWine)

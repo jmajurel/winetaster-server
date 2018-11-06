@@ -3,7 +3,6 @@ const db = require('../models');
 
 async function signup(req, res, next) {
   try {
-    console.log(req.body);
     const newUser = await db.User.create(req.body);
     const { id, username, email, profileImageUrl } = newUser;
     const token = jwt.sign({
