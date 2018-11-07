@@ -1,0 +1,41 @@
+import React, { Component } from 'react';
+import { Switch, Route, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import HomePage from '../components/HomePage';
+import AuthForm from '../components/AuthForm';
+import { authUser } from '../store/actions/auths';
+import {} from '../store/actions/errors';
+
+import WineBar from './WineBar';
+
+class Main extends Component {
+  render(){
+    const { authUser, errors } = this.props;
+    return (
+      <div className='Main'>
+        <Switch>
+	  <Route exact path='/' component={HomePage}/>
+	  <Route exact path='/wines' component={WineBar}/>
+	  <Route exact path='/user/login' render={() => (
+	      <AuthForm 
+	        authType='login' 
+		errors={errors} 
+		onAuth={authUser}
+		{...this.props}
+		/>
+           )} /> 
+	  <Route exact path='/user/signup' render={() => (<AuthForm authType='signup' errors={errors} onAuth={authUser}/>)} />
+	</Switch>
+      </div>
+    );
+  }
+}
+
+function mapStateToProps(state) {
+  return {
+    errors: state.errors,
+    user: state.user
+  }
+}
+
+export default withRouter(connect(mapStateToProps, {authUser})(Main));
