@@ -13,7 +13,7 @@ async function getAllWines(req, res, next) {
 async function getOneWine(req, res, next) {
   try {
     const wine = await db.Wine.findById(req.params.id)
-      .populate('owners')
+      .populate('owner')
       .populate('domaine');
     return res.status(200).json(wine);
   } catch(err) {
@@ -51,12 +51,11 @@ async function createWine(req, res, next) {
 	image,
 	age,
 	alcohol,
+	owner: foundUser.id,
 	description: sanitizer.sanitize(description),
 	domaine: domaineRef.id
       });
 
-      
-      newlyCreatedWine.owners.push(foundUser.id);
       await newlyCreatedWine.save();
 
       foundUser.wines.push(newlyCreatedWine._id);
@@ -66,7 +65,7 @@ async function createWine(req, res, next) {
       await domaineRef.save();
 
       const newWine = await db.Wine.findById(newlyCreatedWine._id)
-	.populate('owners')
+	.populate('owner')
 	.populate('domaine');
 
       return res.status(200).json(newWine);
@@ -114,7 +113,7 @@ async function updateWine(req, res, next) {
     };
 
     const newlyUpdatedWine = await db.Wine.findByIdAndUpdate(req.params.wineId, updatedWine)
-	                             .populate('owners')
+	                             .populate('owner')
                                      .populate('domaine');
 
     return res.status(201).json(newlyUpdatedWine);

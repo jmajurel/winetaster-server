@@ -17,16 +17,17 @@ const wineSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  description: String,
-  owners: [{
+  owner: {
     type: mongoose.Schema.Types.ObjectId, 
+    required: true,
     ref: 'User'
-  }],
+  },
   domaine: {
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Domaine'
   },
   createdAt: { type: Date, default: Date.now },
+  description: String,
   age: Number,
   alcohol: Number
 }); 
